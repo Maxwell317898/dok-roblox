@@ -1,0 +1,138 @@
+--[[
+ ____        _    
+|  _ \  ___ | | __
+| | | |/ _ \| |/ /
+| |_| | (_) |  < 
+|____/ \___/|_|\_\
+
+--]]
+
+-- © maxwell 2023 MIT licence cus github so yea
+
+--startup
+local player = game.Players.LocalPlayer
+
+-- Create a ScreenGui
+local screengui = Instance.new("ScreenGui")
+screengui.Name = "MyScreenGui"
+screengui.Parent = player.PlayerGui
+
+-- Create a TextButton
+local mainintobutton = Instance.new("TextButton")
+mainintobutton.Text = "Click to get to mod menu"
+mainintobutton.Parent = screengui
+mainintobutton.Position = UDim2.new(0.5, -50, 0.5, -25)
+mainintobutton.Size = UDim2.new(0, 100, 0, 50)
+-- next button this is the fly button
+local FLYYAY = Instance.new("TextButton")
+FLYYAY.Visible = false
+FLYYAY.Text = "FLY YAY"
+FLYYAY.Parent = screengui
+FLYYAY.Position = UDim2.new(0.711, 0, 0.328, 0) --{0.711, 0},{0.328, 0}
+FLYYAY.Size = UDim2.new(0, 100, 0, 50)
+-- next button this is the main frame for looks
+local looksframe = Instance.new("TextButton")
+looksframe.Parent = screengui
+looksframe.Visible = false
+looksframe.Text = " "
+looksframe.BackgroundColor3 = Color3.new(0.473564, 0.473564, 0.473564) -- a nice gray coler
+looksframe.Position = UDim2.new(0.699, 0, 0.306, 0) --{0.699, 0},{0.306, 0}
+looksframe.Size = UDim2.new(0, 212, 0, 256) -- {0, 212},{0, 256}
+looksframe.ZIndex = -10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Function to be executed when the button is clicked
+local function Mainintro()
+	print("Button clicked! menu open")
+	open(allcmds)
+end
+
+-- Connect the function to the button's Click event
+mainintobutton.MouseButton1Click:Connect(Mainintro)
+FLYYAY.MouseButton1Click:Connect(fly)
+
+function open(cmds)
+	print("opening")
+	if cmds == allcmds then
+		mainintobutton.Visible = false
+		FLYYAY.Visible = true
+		looksframe.Visible = true
+	elseif cmds == colse then
+		mainintobutton.Visible = true
+		FLYYAY.Visible = false
+		looksframe.Visible = false
+	end
+	
+end
+
+
+
+
+
+
+
+
+-- fly scipt so yea it lets you fly i made it and yea
+local uis = game:GetService("UserInputService")
+local rs = game:GetService("RunService")
+
+local myPlayer = game.Players.LocalPlayer
+local myChar = myPlayer.Character
+local myHRP = myChar:WaitForChild("HumanoidRootPart")
+local camera = game.Workspace.CurrentCamera
+
+local flying = false
+local speed = 0.5
+
+
+local bp = Instance.new("BodyPosition", myHRP)
+bp.MaxForce = Vector3.new()
+bp.D = 10
+bp.P = 10000
+
+local bg = Instance.new("BodyGyro", myHRP)
+bg.MaxTorque = Vector3.new()
+bg.D = 10
+
+function fly()
+	flying = true
+	bp.MaxForce = Vector3.new(400000,400000,400000)
+	bg.MaxTorque = Vector3.new(400000,400000,400000)
+	while flying do
+		rs.RenderStepped:wait()
+		bp.Position = myHRP.Position +((myHRP.Position - camera.CFrame.p).unit * speed)
+		bg.CFrame = CFrame.new(camera.CFrame.p, myHRP.Position)
+	end
+end
+
+function endFlying()
+	bp.MaxForce = Vector3.new()
+	bg.MaxTorque = Vector3.new()
+	flying = false
+end
+
+uis.InputBegan:connect(function(input)
+	if input.KeyCode == Enum.KeyCode.Space then
+		if not flying then
+			fly()
+		else
+			endFlying()
+		end
+	end
+end)
