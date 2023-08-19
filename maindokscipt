@@ -19,12 +19,14 @@ screengui.Parent = player.PlayerGui
 
 -- Create a TextButton
 local mainintobutton = Instance.new("TextButton")
+mainintobutton.Name = "mainintobutton"
 mainintobutton.Text = "Click to get to mod menu"
 mainintobutton.Parent = screengui
 mainintobutton.Position = UDim2.new(0.5, -50, 0.5, -25)
 mainintobutton.Size = UDim2.new(0, 100, 0, 50)
 -- next button this is the fly button
 local FLYYAY = Instance.new("TextButton")
+FLYYAY.Name = "FLYYAY"
 FLYYAY.Visible = false
 FLYYAY.Text = "FLY YAY"
 FLYYAY.Parent = screengui
@@ -32,6 +34,7 @@ FLYYAY.Position = UDim2.new(0.711, 0, 0.328, 0) --{0.711, 0},{0.328, 0}
 FLYYAY.Size = UDim2.new(0, 100, 0, 50)
 -- next button this is the main frame for looks
 local looksframe = Instance.new("TextButton")
+looksframe.Name = "looksframe"
 looksframe.Parent = screengui
 looksframe.Visible = false
 looksframe.Text = " "
@@ -39,6 +42,22 @@ looksframe.BackgroundColor3 = Color3.new(0.473564, 0.473564, 0.473564) -- a nice
 looksframe.Position = UDim2.new(0.699, 0, 0.306, 0) --{0.699, 0},{0.306, 0}
 looksframe.Size = UDim2.new(0, 212, 0, 256) -- {0, 212},{0, 256}
 looksframe.ZIndex = -10
+-- close x thing
+local colseting = Instance.new("TextButton")
+colseting.Name = "colseting"
+colseting.Parent = screengui
+colseting.Visible = false
+colseting.Text = "X"
+colseting.BackgroundColor3 = Color3.new(1, 0.147753, 0.132189)
+colseting.Position = UDim2.new(0.861, 0, 0.313, 0) --{0.861, 0},{0.313, 0}
+colseting.Size = UDim2.new(0, 22, 0, 24)
+--inf yeid
+local infyee = Instance.new("TextButton")
+infyee.Parent = screengui
+infyee.Visible = false 
+infyee.Size = UDim2.new(0, 100, 0, 50)
+infyee.Position = UDim2.new(0.711, 0, 0.428, 0)--{0.711, 0},{0.428, 0}
+infyee.Name = "infye"
 
 
 
@@ -52,8 +71,13 @@ looksframe.ZIndex = -10
 
 
 
-
-
+local function colse()
+	print(colseing_menu)
+	open(colse)
+end
+local function infye()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end
 
 
 
@@ -63,9 +87,7 @@ local function Mainintro()
 	open(allcmds)
 end
 
--- Connect the function to the button's Click event
-mainintobutton.MouseButton1Click:Connect(Mainintro)
-FLYYAY.MouseButton1Click:Connect(fly)
+
 
 function open(cmds)
 	print("opening")
@@ -73,20 +95,17 @@ function open(cmds)
 		mainintobutton.Visible = false
 		FLYYAY.Visible = true
 		looksframe.Visible = true
+		colseting.Visible = true
+		infyee.Visible = true
 	elseif cmds == colse then
 		mainintobutton.Visible = true
 		FLYYAY.Visible = false
 		looksframe.Visible = false
+		colseting.Visible = false
+		infyee.Visible = false
 	end
-	
+
 end
-
-
-
-
-
-
-
 
 -- fly scipt so yea it lets you fly i made it and yea
 local uis = game:GetService("UserInputService")
@@ -136,3 +155,21 @@ uis.InputBegan:connect(function(input)
 		end
 	end
 end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Connect the function to the button's Click event
+mainintobutton.MouseButton1Click:Connect(Mainintro)
+colseting.MouseButton1Click:Connect(colse)
+infyee.MouseButton1Click:Connect(infye)
+FLYYAY.MouseButton1Click:Connect(fly)
