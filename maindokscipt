@@ -1,9 +1,11 @@
 --[[
- ____        _    
-|  _ \  ___ | | __
-| | | |/ _ \| |/ /
-| |_| | (_) |  < 
-|____/ \___/|_|\_\
+██████╗  ██████╗ ██╗  ██╗    ██████╗ ██╗   ██╗    ███╗   ███╗ █████╗ ██╗  ██╗
+██╔══██╗██╔═══██╗██║ ██╔╝    ██╔══██╗╚██╗ ██╔╝    ████╗ ████║██╔══██╗╚██╗██╔╝
+██║  ██║██║   ██║█████╔╝     ██████╔╝ ╚████╔╝     ██╔████╔██║███████║ ╚███╔╝ 
+██║  ██║██║   ██║██╔═██╗     ██╔══██╗  ╚██╔╝      ██║╚██╔╝██║██╔══██║ ██╔██╗ 
+██████╔╝╚██████╔╝██║  ██╗    ██████╔╝   ██║       ██║ ╚═╝ ██║██║  ██║██╔╝ ██╗
+╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+                                                                             
 
 --]]
 
@@ -58,6 +60,12 @@ infyee.Visible = false
 infyee.Size = UDim2.new(0, 100, 0, 50)
 infyee.Position = UDim2.new(0.711, 0, 0.428, 0)--{0.711, 0},{0.428, 0}
 infyee.Name = "infye"
+infyee.Text = "inf yeild"
+local canuseinfye = true
+-- sound instance - acsec denied
+local deniesdac = Instance.new("Sound")
+deniesdac.SoundId = "rbxassetid://5193094980"
+deniesdac.Parent = player
 
 
 
@@ -76,7 +84,18 @@ local function colse()
 	open(colse)
 end
 local function infye()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	if canuseinfye == true then
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+		infyee.BackgroundColor3 = Color3.new(1, 0.668299, 0.0461433)
+		canuseinfye = false
+	else
+		deniesdac.Playing = true
+		infyee.BackgroundColor3 = Color3.new(1, 0.0807355, 0.0189212)
+		wait(1)
+		deniesdac.Playing = false
+		infyee.BackgroundColor3 = Color3.new(1, 0.668299, 0.0461433)
+	end
+	
 end
 
 
@@ -107,54 +126,7 @@ function open(cmds)
 
 end
 
--- fly scipt so yea it lets you fly i made it and yea
-local uis = game:GetService("UserInputService")
-local rs = game:GetService("RunService")
 
-local myPlayer = game.Players.LocalPlayer
-local myChar = myPlayer.Character
-local myHRP = myChar:WaitForChild("HumanoidRootPart")
-local camera = game.Workspace.CurrentCamera
-
-local flying = false
-local speed = 0.5
-
-
-local bp = Instance.new("BodyPosition", myHRP)
-bp.MaxForce = Vector3.new()
-bp.D = 10
-bp.P = 10000
-
-local bg = Instance.new("BodyGyro", myHRP)
-bg.MaxTorque = Vector3.new()
-bg.D = 10
-
-function fly()
-	flying = true
-	bp.MaxForce = Vector3.new(400000,400000,400000)
-	bg.MaxTorque = Vector3.new(400000,400000,400000)
-	while flying do
-		rs.RenderStepped:wait()
-		bp.Position = myHRP.Position +((myHRP.Position - camera.CFrame.p).unit * speed)
-		bg.CFrame = CFrame.new(camera.CFrame.p, myHRP.Position)
-	end
-end
-
-function endFlying()
-	bp.MaxForce = Vector3.new()
-	bg.MaxTorque = Vector3.new()
-	flying = false
-end
-
-uis.InputBegan:connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Space then
-		if not flying then
-			fly()
-		else
-			endFlying()
-		end
-	end
-end)
 
 
 
@@ -172,4 +144,3 @@ end)
 mainintobutton.MouseButton1Click:Connect(Mainintro)
 colseting.MouseButton1Click:Connect(colse)
 infyee.MouseButton1Click:Connect(infye)
-FLYYAY.MouseButton1Click:Connect(fly)
