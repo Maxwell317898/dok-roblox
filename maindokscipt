@@ -13,6 +13,7 @@
 
 --startup
 local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
 
 -- Create a ScreenGui
 local screengui = Instance.new("ScreenGui")
@@ -24,8 +25,9 @@ local mainintobutton = Instance.new("TextButton")
 mainintobutton.Name = "mainintobutton"
 mainintobutton.Text = "Click to get to mod menu"
 mainintobutton.Parent = screengui
-mainintobutton.Position = UDim2.new(0.5, -50, 0.5, -25)
+mainintobutton.Position = UDim2.new(0.413, 0, 0.013, 0) --0.413, 0, 0.013, 0
 mainintobutton.Size = UDim2.new(0, 100, 0, 50)
+mainintobutton.Style = "RobloxRoundButton"
 -- next button this is the fly button
 local FLYYAY = Instance.new("TextButton")
 FLYYAY.Name = "FLYYAY"
@@ -33,6 +35,7 @@ FLYYAY.Visible = false
 FLYYAY.Text = "FLY YAY"
 FLYYAY.Position = UDim2.new(0.711, 0, 0.328, 0) --{0.711, 0},{0.328, 0}
 FLYYAY.Size = UDim2.new(0, 100, 0, 50)
+FLYYAY.Style = "RobloxRoundButton"
 -- next button this is the main frame for looks
 local looksframe = Instance.new("TextButton")
 looksframe.Name = "looksframe"
@@ -43,6 +46,7 @@ looksframe.BackgroundColor3 = Color3.new(0.473564, 0.473564, 0.473564) -- a nice
 looksframe.Position = UDim2.new(0.699, 0, 0.306, 0) --{0.699, 0},{0.306, 0}
 looksframe.Size = UDim2.new(0, 212, 0, 256) -- {0, 212},{0, 256}
 looksframe.ZIndex = -10
+looksframe.Style = "RobloxRoundButton"
 -- close x thing
 local colseting = Instance.new("TextButton")
 colseting.Name = "colseting"
@@ -52,6 +56,7 @@ colseting.Text = "X"
 colseting.BackgroundColor3 = Color3.new(1, 0.147753, 0.132189)
 colseting.Position = UDim2.new(0.861, 0, 0.313, 0) --{0.861, 0},{0.313, 0}
 colseting.Size = UDim2.new(0, 22, 0, 24)
+colseting.Style = "RobloxRoundButton"
 --inf yeid
 local infyee = Instance.new("TextButton")
 infyee.Parent = screengui
@@ -61,6 +66,7 @@ infyee.Position = UDim2.new(0.711, 0, 0.328, 0)--{0.711, 0},{0.428, 0}
 infyee.Name = "infye"
 infyee.Text = "inf yeild"
 local canuseinfye = true
+infyee.Style = "RobloxRoundButton"
 -- sound instance - acsec denied
 local deniesdac = Instance.new("Sound")
 deniesdac.SoundId = "rbxassetid://5193094980"
@@ -73,6 +79,7 @@ mikinter.Name = "mikinterface"
 mikinter.Position = UDim2.new(0.711, 0, 0.428, 0)
 mikinter.Size = UDim2.new(0, 100, 0, 50)
 mikinter.Text = "cool (glitchy)"
+mikinter.Style = "RobloxRoundButton"
 local mikcanopen = true
 
 
@@ -149,9 +156,6 @@ local function mikopen()
 		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
 	end
 end
-
-
-
 
 
 
