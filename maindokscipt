@@ -14,7 +14,7 @@
 --startup
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
-
+local server = game.ServerScriptService
 -- Create a ScreenGui
 local screengui = Instance.new("ScreenGui")
 screengui.Name = "MyScreenGui"
@@ -25,9 +25,9 @@ local mainintobutton = Instance.new("TextButton")
 mainintobutton.Name = "mainintobutton"
 mainintobutton.Text = "Click to get to mod menu"
 mainintobutton.Parent = screengui
-mainintobutton.Position = UDim2.new(0.413, 0, 0.013, 0) --0.413, 0, 0.013, 0
-mainintobutton.Size = UDim2.new(0, 100, 0, 50)
-mainintobutton.Style = "RobloxRoundButton"
+mainintobutton.Position = UDim2.new(0.733, 0, -0.011, 0) --0.413, 0, 0.013, 0 -- {0.733, 0},{-0.011, 0} (new)
+mainintobutton.Size = UDim2.new(0, 150, 0, 29) -- {0, 150},{0, 29} (currant)
+
 -- next button this is the fly button
 local FLYYAY = Instance.new("TextButton")
 FLYYAY.Name = "FLYYAY"
@@ -46,7 +46,6 @@ looksframe.BackgroundColor3 = Color3.new(0.473564, 0.473564, 0.473564) -- a nice
 looksframe.Position = UDim2.new(0.699, 0, 0.306, 0) --{0.699, 0},{0.306, 0}
 looksframe.Size = UDim2.new(0, 212, 0, 256) -- {0, 212},{0, 256}
 looksframe.ZIndex = -10
-looksframe.Style = "RobloxRoundButton"
 -- close x thing
 local colseting = Instance.new("TextButton")
 colseting.Name = "colseting"
@@ -66,7 +65,7 @@ infyee.Position = UDim2.new(0.711, 0, 0.328, 0)--{0.711, 0},{0.428, 0}
 infyee.Name = "infye"
 infyee.Text = "inf yeild"
 local canuseinfye = true
-infyee.Style = "RobloxRoundButton"
+infyee.BackgroundColor3 = Color3.new(0.666941, 0.665843, 0.668055)
 -- sound instance - acsec denied
 local deniesdac = Instance.new("Sound")
 deniesdac.SoundId = "rbxassetid://5193094980"
@@ -79,11 +78,21 @@ mikinter.Name = "mikinterface"
 mikinter.Position = UDim2.new(0.711, 0, 0.428, 0)
 mikinter.Size = UDim2.new(0, 100, 0, 50)
 mikinter.Text = "cool (glitchy)"
-mikinter.Style = "RobloxRoundButton"
+mikinter.BackgroundColor3 = Color3.new(0.666941, 0.665843, 0.668055)
 local mikcanopen = true
-
-
-
+--apply round cornor
+local roundmonintobutton = Instance.new("UICorner")
+roundmonintobutton.Parent = mainintobutton
+roundmonintobutton.CornerRadius = UDim.new(21, 0)
+local roundmainlooksframe = Instance.new("UICorner")
+roundmainlooksframe.Parent = looksframe
+roundmainlooksframe.CornerRadius = UDim.new(0, 6)
+local roundinfyee = Instance.new("UICorner")
+roundinfyee.Parent = infyee
+roundinfyee.CornerRadius = UDim.new(0, 7)
+local mikrounded = Instance.new("UICorner")
+mikrounded.Parent = mikinter
+mikrounded.CornerRadius = UDim.new(0, 7)
 
 
 
@@ -103,7 +112,7 @@ local function infye()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 		infyee.BackgroundColor3 = Color3.new(1, 0.668299, 0.0461433)
 		canuseinfye = false
-	else
+	elseif canuseinfye == false then
 		deniesdac.Playing = true
 		infyee.BackgroundColor3 = Color3.new(1, 0.0807355, 0.0189212)
 		wait(1)
@@ -126,6 +135,7 @@ end
 function open(cmds)
 	print("opening")
 	if cmds == allcmds then
+		warn("opening use this for crash reporting error:132 : reson if crash overload of guis and effects")
 		mainintobutton.Visible = false
 		FLYYAY.Visible = true
 		looksframe.Visible = true
@@ -133,6 +143,7 @@ function open(cmds)
 		infyee.Visible = true
 		mikinter.Visible = true
 	elseif cmds == colse then
+		warn("closeing guis :  error:140  :")
 		mainintobutton.Visible = true
 		FLYYAY.Visible = false
 		looksframe.Visible = false
@@ -145,6 +156,7 @@ end
 
 local function mikopen()
 	if mikcanopen == true then
+		warn("opening cool gui if crash :  error:153  :")
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/Maxwell317898/dok-roblox/test/sources'))()
 		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
 		mikcanopen = false
@@ -156,6 +168,14 @@ local function mikopen()
 		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
 	end
 end
+
+
+
+
+
+
+
+
 
 
 
