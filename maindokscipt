@@ -145,7 +145,7 @@ end
 
 local function mikopen()
 	if mikcanopen == true then
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/Maxwell317898/dok-roblox/test/sources'))()
+		loadstring(game:HttpGet('https://github.com/Maxwell317898/dok-roblox/raw/main/source'))()
 		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
 		mikcanopen = false
 	elseif mikcanopen == false then
