@@ -1,9 +1,11 @@
 --[[
- ____        _    
-|  _ \  ___ | | __
-| | | |/ _ \| |/ /
-| |_| | (_) |  < 
-|____/ \___/|_|\_\
+██████╗  ██████╗ ██╗  ██╗    ██████╗ ██╗   ██╗    ███╗   ███╗ █████╗ ██╗  ██╗
+██╔══██╗██╔═══██╗██║ ██╔╝    ██╔══██╗╚██╗ ██╔╝    ████╗ ████║██╔══██╗╚██╗██╔╝
+██║  ██║██║   ██║█████╔╝     ██████╔╝ ╚████╔╝     ██╔████╔██║███████║ ╚███╔╝ 
+██║  ██║██║   ██║██╔═██╗     ██╔══██╗  ╚██╔╝      ██║╚██╔╝██║██╔══██║ ██╔██╗ 
+██████╔╝╚██████╔╝██║  ██╗    ██████╔╝   ██║       ██║ ╚═╝ ██║██║  ██║██╔╝ ██╗
+╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+                                                                             
 
 --]]
 
@@ -11,6 +13,7 @@
 
 --startup
 local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
 
 -- Create a ScreenGui
 local screengui = Instance.new("ScreenGui")
@@ -19,19 +22,23 @@ screengui.Parent = player.PlayerGui
 
 -- Create a TextButton
 local mainintobutton = Instance.new("TextButton")
+mainintobutton.Name = "mainintobutton"
 mainintobutton.Text = "Click to get to mod menu"
 mainintobutton.Parent = screengui
-mainintobutton.Position = UDim2.new(0.5, -50, 0.5, -25)
+mainintobutton.Position = UDim2.new(0.413, 0, 0.013, 0) --0.413, 0, 0.013, 0
 mainintobutton.Size = UDim2.new(0, 100, 0, 50)
+mainintobutton.Style = "RobloxRoundButton"
 -- next button this is the fly button
 local FLYYAY = Instance.new("TextButton")
+FLYYAY.Name = "FLYYAY"
 FLYYAY.Visible = false
 FLYYAY.Text = "FLY YAY"
-FLYYAY.Parent = screengui
 FLYYAY.Position = UDim2.new(0.711, 0, 0.328, 0) --{0.711, 0},{0.328, 0}
 FLYYAY.Size = UDim2.new(0, 100, 0, 50)
+FLYYAY.Style = "RobloxRoundButton"
 -- next button this is the main frame for looks
 local looksframe = Instance.new("TextButton")
+looksframe.Name = "looksframe"
 looksframe.Parent = screengui
 looksframe.Visible = false
 looksframe.Text = " "
@@ -39,6 +46,41 @@ looksframe.BackgroundColor3 = Color3.new(0.473564, 0.473564, 0.473564) -- a nice
 looksframe.Position = UDim2.new(0.699, 0, 0.306, 0) --{0.699, 0},{0.306, 0}
 looksframe.Size = UDim2.new(0, 212, 0, 256) -- {0, 212},{0, 256}
 looksframe.ZIndex = -10
+looksframe.Style = "RobloxRoundButton"
+-- close x thing
+local colseting = Instance.new("TextButton")
+colseting.Name = "colseting"
+colseting.Parent = screengui
+colseting.Visible = false
+colseting.Text = "X"
+colseting.BackgroundColor3 = Color3.new(1, 0.147753, 0.132189)
+colseting.Position = UDim2.new(0.861, 0, 0.313, 0) --{0.861, 0},{0.313, 0}
+colseting.Size = UDim2.new(0, 22, 0, 24)
+colseting.Style = "RobloxRoundButton"
+--inf yeid
+local infyee = Instance.new("TextButton")
+infyee.Parent = screengui
+infyee.Visible = false 
+infyee.Size = UDim2.new(0, 100, 0, 50)
+infyee.Position = UDim2.new(0.711, 0, 0.328, 0)--{0.711, 0},{0.428, 0}
+infyee.Name = "infye"
+infyee.Text = "inf yeild"
+local canuseinfye = true
+infyee.Style = "RobloxRoundButton"
+-- sound instance - acsec denied
+local deniesdac = Instance.new("Sound")
+deniesdac.SoundId = "rbxassetid://5193094980"
+deniesdac.Parent = player
+-- mik interface
+local mikinter = Instance.new("TextButton")
+mikinter.Parent = screengui
+mikinter.Visible = false
+mikinter.Name = "mikinterface"
+mikinter.Position = UDim2.new(0.711, 0, 0.428, 0)
+mikinter.Size = UDim2.new(0, 100, 0, 50)
+mikinter.Text = "cool (glitchy)"
+mikinter.Style = "RobloxRoundButton"
+local mikcanopen = true
 
 
 
@@ -52,8 +94,24 @@ looksframe.ZIndex = -10
 
 
 
-
-
+local function colse()
+	print(colseing_menu)
+	open(colse)
+end
+local function infye()
+	if canuseinfye == true then
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+		infyee.BackgroundColor3 = Color3.new(1, 0.668299, 0.0461433)
+		canuseinfye = false
+	else
+		deniesdac.Playing = true
+		infyee.BackgroundColor3 = Color3.new(1, 0.0807355, 0.0189212)
+		wait(1)
+		deniesdac.Playing = false
+		infyee.BackgroundColor3 = Color3.new(1, 0.668299, 0.0461433)
+	end
+	
+end
 
 
 
@@ -63,9 +121,7 @@ local function Mainintro()
 	open(allcmds)
 end
 
--- Connect the function to the button's Click event
-mainintobutton.MouseButton1Click:Connect(Mainintro)
-FLYYAY.MouseButton1Click:Connect(fly)
+
 
 function open(cmds)
 	print("opening")
@@ -73,66 +129,45 @@ function open(cmds)
 		mainintobutton.Visible = false
 		FLYYAY.Visible = true
 		looksframe.Visible = true
+		colseting.Visible = true
+		infyee.Visible = true
+		mikinter.Visible = true
 	elseif cmds == colse then
 		mainintobutton.Visible = true
 		FLYYAY.Visible = false
 		looksframe.Visible = false
+		colseting.Visible = false
+		infyee.Visible = false
+		mikinter.Visible = false
 	end
-	
+
 end
 
-
-
-
-
-
-
-
--- fly scipt so yea it lets you fly i made it and yea
-local uis = game:GetService("UserInputService")
-local rs = game:GetService("RunService")
-
-local myPlayer = game.Players.LocalPlayer
-local myChar = myPlayer.Character
-local myHRP = myChar:WaitForChild("HumanoidRootPart")
-local camera = game.Workspace.CurrentCamera
-
-local flying = false
-local speed = 0.5
-
-
-local bp = Instance.new("BodyPosition", myHRP)
-bp.MaxForce = Vector3.new()
-bp.D = 10
-bp.P = 10000
-
-local bg = Instance.new("BodyGyro", myHRP)
-bg.MaxTorque = Vector3.new()
-bg.D = 10
-
-function fly()
-	flying = true
-	bp.MaxForce = Vector3.new(400000,400000,400000)
-	bg.MaxTorque = Vector3.new(400000,400000,400000)
-	while flying do
-		rs.RenderStepped:wait()
-		bp.Position = myHRP.Position +((myHRP.Position - camera.CFrame.p).unit * speed)
-		bg.CFrame = CFrame.new(camera.CFrame.p, myHRP.Position)
+local function mikopen()
+	if mikcanopen == true then
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Maxwell317898/dok-roblox/test/sources'))()
+		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
+		mikcanopen = false
+	elseif mikcanopen == false then
+		mikinter.BackgroundColor3 = Color3.new(1, 0.0807355, 0)
+		deniesdac.Playing = true
+		wait(1)
+		deniesdac.Playing = false
+		mikinter.BackgroundColor3 = Color3.new(1, 0.635752, 0.0817578)
 	end
 end
 
-function endFlying()
-	bp.MaxForce = Vector3.new()
-	bg.MaxTorque = Vector3.new()
-	flying = false
-end
 
-uis.InputBegan:connect(function(input)
-	if input.KeyCode == Enum.KeyCode.Space then
-		if not flying then
-			fly()
-		else
-			endFlying()
-		end
-	end
-end)
+
+
+
+
+
+
+
+
+-- Connect the function to the button's Click event
+mainintobutton.MouseButton1Click:Connect(Mainintro)
+colseting.MouseButton1Click:Connect(colse)
+infyee.MouseButton1Click:Connect(infye)
+mikinter.MouseButton1Click:Connect(mikopen)
