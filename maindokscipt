@@ -27,15 +27,6 @@ mainintobutton.Text = "Click to get to mod menu"
 mainintobutton.Parent = screengui
 mainintobutton.Position = UDim2.new(0.733, 0, -0.011, 0) --0.413, 0, 0.013, 0 -- {0.733, 0},{-0.011, 0} (new)
 mainintobutton.Size = UDim2.new(0, 150, 0, 29) -- {0, 150},{0, 29} (currant)
-
--- next button this is the fly button
-local FLYYAY = Instance.new("TextButton")
-FLYYAY.Name = "FLYYAY"
-FLYYAY.Visible = false
-FLYYAY.Text = "FLY YAY"
-FLYYAY.Position = UDim2.new(0.711, 0, 0.328, 0) --{0.711, 0},{0.328, 0}
-FLYYAY.Size = UDim2.new(0, 100, 0, 50)
-FLYYAY.Style = "RobloxRoundButton"
 -- next button this is the main frame for looks
 local looksframe = Instance.new("TextButton")
 looksframe.Name = "looksframe"
@@ -80,6 +71,15 @@ mikinter.Size = UDim2.new(0, 100, 0, 50)
 mikinter.Text = "cool (glitchy)"
 mikinter.BackgroundColor3 = Color3.new(0.666941, 0.665843, 0.668055)
 local mikcanopen = true
+--spindspeed (in-dev) -<depracticated>-
+--[[
+local spinspeed = Instance.new("TextBox") -- pos {0.818, 0},{0.366, 0} currant size {0, 57},{0, 28} currant
+spinspeed.Parent = screengui
+spinspeed.Size = UDim2.new(0, 57, 0, 28)
+spinspeed.Position = UDim2.new(0.818, 0, 0.366, 0)
+spinspeed.Text = "0"
+local spindspeedval = spinspeed.Text
+--]]
 --apply round cornor
 local roundmonintobutton = Instance.new("UICorner")
 roundmonintobutton.Parent = mainintobutton
@@ -93,6 +93,15 @@ roundinfyee.CornerRadius = UDim.new(0, 7)
 local mikrounded = Instance.new("UICorner")
 mikrounded.Parent = mikinter
 mikrounded.CornerRadius = UDim.new(0, 7)
+-- amins for stupid flyaya undepracticated
+local flyanim1 = Instance.new("Animation")
+flyanim1.AnimationId = "rbxassetid://616006778"
+flyanim1.Parent = script
+flyanim1.Name = "IdleAnim"
+local flyanim2 = Instance.new("Animation")
+flyanim2.AnimationId = "rbxassetid://616010382"
+flyanim2.Parent = script 
+flyanim2.Name = "MoveAnim"
 
 
 
@@ -104,7 +113,7 @@ mikrounded.CornerRadius = UDim.new(0, 7)
 
 
 local function colse()
-	print(colseing_menu)
+	print("colseing_menu")
 	open(colse)
 end
 local function infye()
@@ -137,7 +146,6 @@ function open(cmds)
 	if cmds == allcmds then
 		warn("opening use this for crash reporting error:132 : reson if crash overload of guis and effects")
 		mainintobutton.Visible = false
-		FLYYAY.Visible = true
 		looksframe.Visible = true
 		colseting.Visible = true
 		infyee.Visible = true
@@ -145,7 +153,6 @@ function open(cmds)
 	elseif cmds == colse then
 		warn("closeing guis :  error:140  :")
 		mainintobutton.Visible = true
-		FLYYAY.Visible = false
 		looksframe.Visible = false
 		colseting.Visible = false
 		infyee.Visible = false
@@ -170,7 +177,100 @@ local function mikopen()
 end
 
 
+-- Made by EgoMoose: https://devforum.roblox.com/t/how-to-make-a-character-fly/169309/5
+-- Remixed by Jermartynojm: https://devforum.roblox.com/t/how-to-make-a-character-fly/169309/15
+-- dododododo idk i kinda stole this but noo so yea (Maxwell317898)
+local flyKey = Enum.KeyCode.F
 
+local camera = game:GetService("Workspace").CurrentCamera
+
+local character = game:GetService("Players").LocalPlayer.Character or game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+local animator = humanoid:FindFirstChildOfClass("Animator")
+local animate = character:WaitForChild("Animate")
+
+local idleAnim = animator:LoadAnimation(script:WaitForChild("IdleAnim"))
+local moveAnim = animator:LoadAnimation(script:WaitForChild("MoveAnim"))
+local lastAnim = idleAnim
+
+local bodyGyro = Instance.new("BodyGyro")
+bodyGyro.MaxTorque = Vector3.new(1, 1, 1) * 10^6
+bodyGyro.P = 10^6
+
+local bodyVel = Instance.new("BodyVelocity")
+bodyVel.MaxForce = Vector3.new(1, 1, 1) * 10^6
+bodyVel.P = 10^4
+
+local isFlying = false
+local movement = {forward = 0, backward = 0, right = 0, left = 0}
+
+local function setFlying(flying)
+	isFlying = flying
+	bodyGyro.Parent = isFlying and hrp or nil
+	bodyVel.Parent = isFlying and hrp or nil
+	bodyGyro.CFrame = hrp.CFrame
+	bodyVel.Velocity = Vector3.new()
+	animate.Disabled = isFlying
+	if isFlying then
+		lastAnim = idleAnim
+		lastAnim:Play()
+	else
+		lastAnim:Stop()
+	end
+end
+
+local function onUpdate(dt)
+	if isFlying then
+		local cf = camera.CFrame
+		local direction = cf.RightVector * (movement.right - movement.left) + cf.LookVector * (movement.forward - movement.backward)
+		if direction:Dot(direction) > 0 then
+			direction = direction.Unit
+		end
+		bodyGyro.CFrame = cf
+		bodyVel.Velocity = direction * humanoid.WalkSpeed * 3
+	end
+end
+
+local function onKeyPress(input, gameProcessedEvent)
+	if not gameProcessedEvent and input.KeyCode == flyKey then
+		if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead then
+			return
+		end
+		for _, v in pairs(animator:GetPlayingAnimationTracks()) do
+			v:Stop()
+		end
+		setFlying(not isFlying)
+	end
+end
+
+local function movementBind(actionName, inputState, inputObject)
+	if inputState == Enum.UserInputState.Begin then
+		movement[actionName] = 1
+	elseif inputState == Enum.UserInputState.End then
+		movement[actionName] = 0
+	end
+	if isFlying then
+		local isMoving = movement.right + movement.left + movement.forward + movement.backward > 0
+		local nextAnim = isMoving and moveAnim or idleAnim
+		if nextAnim ~= lastAnim then
+			lastAnim:Stop()
+			lastAnim = nextAnim
+			lastAnim:Play()
+		end
+	end
+	return Enum.ContextActionResult.Pass
+end
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+--[[ You can also handle mobile support here.
+	 Example: when a player is on mobile, a TextButton for fly appears. When the button is clicked,
+	 you can do onKeyPress(flyKey, false) (which would simulate pressing the flyKey).]]
+game:GetService("ContextActionService"):BindAction("forward", movementBind, false, Enum.PlayerActions.CharacterForward)
+game:GetService("ContextActionService"):BindAction("backward", movementBind, false, Enum.PlayerActions.CharacterBackward)
+game:GetService("ContextActionService"):BindAction("left", movementBind, false, Enum.PlayerActions.CharacterLeft)
+game:GetService("ContextActionService"):BindAction("right", movementBind, false, Enum.PlayerActions.CharacterRight)
+game:GetService("RunService").RenderStepped:Connect(onUpdate)
 
 
 
