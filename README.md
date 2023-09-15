@@ -6,4 +6,5 @@ here is the main script loadstring(game:HttpGet('https://raw.githubusercontent.c
 ### my Tos when You use this
 I do not condone the use of hacks as it brakes Roblox's [tos](https://en.help.roblox.com/hc/en-us/articles/203312450-Cheating-and-Exploiting) 
 I cannot be held accountable for damages delt/made by this script
-# short vid thing idk
+# oversimplifyed code snippet
+![img](https://github.com/Maxwell317898/dok-roblox/blob/main/doksnipet.png)
