@@ -7,4 +7,4 @@ here is the main script loadstring(game:HttpGet('https://raw.githubusercontent.c
 added new gui and fetures like fly in the background press R to activate
 just made it better in general
 # BEFORE YOU USE THIS SCRIPT 
-## [PLEASE LOOK AT THE TOS IN THE MAIN BRANCH THAT YOU NEED TO READ DEFORE USEING](https://github.com/Maxwell317898/dok-roblox/tree/main)
+## [PLEASE LOOK AT THE TOS IN THE MAIN BRANCH THAT YOU NEED TO READ DEFORE USEING](https://github.com/Maxwell317898/dok-roblox/tree/main#my-tos-when-you-use-this)
